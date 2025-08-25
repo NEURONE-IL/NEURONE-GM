@@ -26,9 +26,14 @@ const groupRoutes = require('./api/groupRoutes');
 
 
 //db connection
-//mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@localhost:27017/neuronegm`,{useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
-//fixed connection to use mongodb in container and without auth
-mongoose.connect(process.env.URI,{useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
+console.log('Connecting to MongoDB with URI:', process.env.URI);
+mongoose.connect(process.env.URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
+  .then(() => {
+    console.log('Connected to MongoDB successfully');
+  })
+  .catch((err) => {
+    console.error('MongoDB connection error:', err);
+  });
 
 /** Express setup **/
 const app = express();
