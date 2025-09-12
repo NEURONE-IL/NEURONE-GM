@@ -1,18 +1,26 @@
 # This defines our starting point
-FROM node:10
+FROM node:14-alpine AS build
 
 # Working directory
-RUN mkdir /usr/src/client-neuronegm
-# Create app directory
-WORKDIR /usr/src/client-neuronegm
+WORKDIR /app
 
+# Copy package files
+COPY package*.json ./
+RUN npm install
+
+# Copy source and build
 COPY . .
+RUN npm run build --prod
+
+# Production stage
+FROM node:14-alpine
+
+WORKDIR /app
+RUN npm install -g serve
+
+COPY --from=build /app/dist ./dist
 
 EXPOSE 4200
 
-# Dependencies
-RUN npm install -g @angular/cli@10.0.0
-RUN npm install
-
 # Serve the app
-CMD ["npm", "start"]
+CMD ["serve", "-s", "dist", "-l", "4200"]
