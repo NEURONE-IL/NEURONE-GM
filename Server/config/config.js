@@ -1,13 +1,12 @@
 //PORT
 process.env.PORT = process.env.PORT || 3080;
 
-process.env.APP_URI = "http://localhost:3080"
+process.env.APP_URI = process.env.APP_URI || "http://localhost:3080"
 
 //Auth Port
-process.env.AuthPORT = "http://localhost:9000/api"
+process.env.AuthPORT = process.env.AuthPORT || "http://localhost:9000/api"
 
 //DB
-
 process.env.DB_USER = process.env.DB_USER || 'neuroneAdmin';
 
 process.env.DB_PWD = process.env.DB_PWD || 'DK,V-Dk6-*Pd-PM';
