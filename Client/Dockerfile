@@ -10,7 +10,7 @@ RUN npm install
 
 # Copy source and build
 COPY . .
-RUN npm run build --prod
+RUN npm run build -- --prod
 
 # Production stage
 FROM node:14-alpine
